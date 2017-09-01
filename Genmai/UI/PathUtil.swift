@@ -62,12 +62,16 @@ public struct PathUtil {
   }
   
   public static func walkUp(view:UIView, thusFar:[UIView] = []) -> [UIView] {
-    let withMe : [UIView] = thusFar + [view]
+    var path : [UIView] = [view]
+    var current = view
     
-    if let sv = view.superview {
-      return walkUp(view: sv, thusFar: withMe)
-    } else {
-      return withMe
+    while let sv = current.superview {
+      path.append(sv)
+      current = sv
     }
+    
+    path.reverse()
+    
+    return path
   }
 }
